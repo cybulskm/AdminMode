@@ -1,4 +1,5 @@
-﻿using BepInEx;
+﻿using AdminMode.Patches;
+using BepInEx;
 using BepInEx.Logging;
 using GameNetcodeStuff;
 using HarmonyLib;
@@ -35,6 +36,7 @@ namespace AdminMode
             mls = BepInEx.Logging.Logger.CreateLogSource(modGUID);
             mls.LogInfo("This mod has started");
             harmony.PatchAll(typeof(AdminBase));
+            harmony.PatchAll(typeof(TerminalInterfacePatch));
             mls.LogInfo("Mod completed loading patches");
         }
     }
