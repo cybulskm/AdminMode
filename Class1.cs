@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdminMode
 {
-    public class Class1
+    public class AdminBase
     {
     }
 }
