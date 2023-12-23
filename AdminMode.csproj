@@ -63,8 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Patches\InfiniteDeadLinePatch.cs" />
-    <Compile Include="Patches\MakeUserAdminPatch.cs" />
+    <Compile Include="Patches\KillPlayerPatch.cs" />
+    <Compile Include="Patches\TimeOfDayPatch.cs" />
+    <Compile Include="Patches\PlayerControllerPatch.cs" />
     <Compile Include="Patches\TerminalInterfacePatch.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

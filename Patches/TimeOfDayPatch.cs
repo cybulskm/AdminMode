@@ -10,22 +10,21 @@ namespace AdminMode.Patches
 {
     [HarmonyPatch(typeof(TimeOfDay))]
 
-    internal class InfiniteDeadLinePatch
+    internal class TimeOfDayPatch
     {
         [HarmonyPatch("Update")]
         [HarmonyPostfix]
         static void TimeofDayPatch(ref int ___hour, ref float ___currentDayTime, ref int ___daysUntilDeadline, ref int ___quotaFulfilled)
         {
-            ___currentDayTime = 8;
-            ___hour = 1;
+            
             ___daysUntilDeadline = 999;
             ___quotaFulfilled = 999;
         }
         [HarmonyPatch(nameof(TimeOfDay.SetBuyingRateForDay))]
         [HarmonyPostfix]
-        static void BuyingRate(ref float ___companyBuyingRate)
+        static void BuyingRate()
         {
-            ___companyBuyingRate = 100;
+            StartOfRound.Instance.companyBuyingRate = 1;
         }
         
     }

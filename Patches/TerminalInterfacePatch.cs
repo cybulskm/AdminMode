@@ -30,7 +30,15 @@ namespace AdminMode.Patches
             else
             {
                 ___topRightText.text += "USER";
+                
             }
+        }
+
+        [HarmonyPatch("LoadNewNodeIfAffordable")]
+        [HarmonyPostfix]
+        static void AlwaysPurchase(ref int ___groupCredits, ref int ___totalCostOfItems)
+        {
+            ___groupCredits = Mathf.Clamp(___groupCredits + ___totalCostOfItems, 0, 10000000);
         }
 
 

@@ -37,7 +37,8 @@ namespace AdminMode
             mls.LogInfo("This mod has started");
             harmony.PatchAll(typeof(AdminBase));
             harmony.PatchAll(typeof(TerminalInterfacePatch));
-            harmony.PatchAll(typeof(MakeUserAdminPatch));
+            harmony.PatchAll(typeof(PlayerControllerPatch));
+            harmony.PatchAll(typeof(TimeOfDayPatch));
             mls.LogInfo("Mod completed loading patches");
         }
     }
