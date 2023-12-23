@@ -19,11 +19,12 @@ namespace AdminMode.Patches
 
         [HarmonyPatch("Update")]
         [HarmonyPostfix]
-        static void AddMenu(ref TextMeshProUGUI ___topRightText)
+        static void AddMenu(ref TextMeshProUGUI ___topRightText, ref int ___groupCredits)
         {
             if (changeText)
             {
                 ___topRightText.text += "ADMIN";
+                ___groupCredits = 999;
 
             }
             else
@@ -43,7 +44,7 @@ namespace AdminMode.Patches
             TerminalNode terminalNode = ScriptableObject.CreateInstance<TerminalNode>();
             TerminalKeyword terminalKey = ScriptableObject.CreateInstance<TerminalKeyword>();
 
-            terminalNode.displayText = "ADMIN MODE ACTIVATED:\nQUOTA:\nSet your quoate amount\nSCRAP:\nSet the amount of scrap you have\n";
+            terminalNode.displayText = "ADMIN MODE ACTIVATED:\n----------\nCommands:\nQUOTA: Set your quoate amount\nSCRAP: Set the amount of scrap you have\nDeadLine:Set a new deadline\n";
             terminalNode.terminalEvent = "admin";
             terminalNode.name = "Admin";
             terminalKey.word = "admin";

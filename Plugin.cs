@@ -16,7 +16,7 @@ namespace AdminMode
 
     public class AdminBase : BaseUnityPlugin
     {
-        private const string modGUID = "AdminMode Logger";
+        private const string modGUID = "AdminMode";
         private const string modName = "Testing AdminMode";
         private const string modVersion = "1.0.0";
 
@@ -37,6 +37,7 @@ namespace AdminMode
             mls.LogInfo("This mod has started");
             harmony.PatchAll(typeof(AdminBase));
             harmony.PatchAll(typeof(TerminalInterfacePatch));
+            harmony.PatchAll(typeof(MakeUserAdminPatch));
             mls.LogInfo("Mod completed loading patches");
         }
     }
