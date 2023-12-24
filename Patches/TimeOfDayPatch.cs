@@ -12,19 +12,15 @@ namespace AdminMode.Patches
 
     internal class TimeOfDayPatch
     {
-        [HarmonyPatch("Update")]
-        [HarmonyPostfix]
-        static void TimeofDayPatch(ref int ___hour, ref float ___currentDayTime, ref int ___daysUntilDeadline, ref int ___quotaFulfilled)
-        {
-            
-            ___daysUntilDeadline = 999;
-            ___quotaFulfilled = 999;
-        }
         [HarmonyPatch(nameof(TimeOfDay.SetBuyingRateForDay))]
         [HarmonyPostfix]
         static void BuyingRate()
         {
-            StartOfRound.Instance.companyBuyingRate = 1;
+            if (TerminalInterfacePatch.changeText)
+            {
+                StartOfRound.Instance.companyBuyingRate = 1;
+
+            }
         }
         
     }

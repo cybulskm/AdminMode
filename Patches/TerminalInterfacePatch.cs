@@ -15,7 +15,7 @@ namespace AdminMode.Patches
     [HarmonyPatch(typeof(Terminal))]
     internal class TerminalInterfacePatch
     {
-        static bool changeText = false;
+        public static bool changeText = false;
 
         [HarmonyPatch("Update")]
         [HarmonyPostfix]
@@ -35,7 +35,7 @@ namespace AdminMode.Patches
         }
 
         [HarmonyPatch("LoadNewNodeIfAffordable")]
-        [HarmonyPostfix]
+        [HarmonyPrefix]
         static void AlwaysPurchase(ref int ___groupCredits, ref int ___totalCostOfItems)
         {
             ___groupCredits = Mathf.Clamp(___groupCredits + ___totalCostOfItems, 0, 10000000);

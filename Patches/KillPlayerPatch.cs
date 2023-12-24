@@ -12,13 +12,9 @@ namespace AdminMode.Patches
     {
         [HarmonyPatch(nameof(KillLocalPlayer.KillPlayer))]
         [HarmonyPrefix]
-        static void DontKillPlayer(ref int __return)
+        static bool DontKillPlayer()
         {
-            if (1 == 1)
-            {
-                __return = 0;
-                return;
-            }
+            return false;
         }
     }
 }

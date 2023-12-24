@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Patches\EnemyPatch.cs" />
     <Compile Include="Patches\KillPlayerPatch.cs" />
     <Compile Include="Patches\TimeOfDayPatch.cs" />
     <Compile Include="Patches\PlayerControllerPatch.cs" />
