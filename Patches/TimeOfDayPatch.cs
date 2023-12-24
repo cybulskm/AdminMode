@@ -10,6 +10,7 @@ namespace AdminMode.Patches
 {
     [HarmonyPatch(typeof(TimeOfDay))]
 
+    //Set company buying rate to 100 always
     internal class TimeOfDayPatch
     {
         [HarmonyPatch(nameof(TimeOfDay.SetBuyingRateForDay))]

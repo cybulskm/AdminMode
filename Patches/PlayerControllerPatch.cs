@@ -15,7 +15,10 @@ namespace AdminMode.Patches
     {
         [HarmonyPatch("Update")]
         [HarmonyPostfix]
-        static void InfiniteUpdatePatch(ref float ___sprintMeter, ref bool ___isPlayerDead, ref float ___drunkness, ref bool ___jetpackControls, ref bool ___isSinking)
+        static void InfiniteUpdatePatch(ref float ___sprintMeter, ref bool ___isPlayerDead, 
+            ref float ___drunkness, ref bool ___jetpackControls, ref bool ___isSinking, 
+            ref Light ___helmetLight, ref Light[] ___allHelmetLights,
+            ref Light ___nightVision, ref float ___insanityLevel, ref float ___sinkingValue)
         {
             if (TerminalInterfacePatch.changeText)
             {
@@ -25,9 +28,13 @@ namespace AdminMode.Patches
                 ___isPlayerDead = false;
                 //Console.WriteLine("Set drunkness to 0");
                 ___drunkness = 0;
-                //___jetpackControls = true;
+                ___jetpackControls = true;
                 ___isSinking = false;
-
+                //___allHelmetLights[0].enabled = true;
+                //___helmetLight = ___allHelmetLights[0];
+                ___nightVision.enabled = true;
+                ___insanityLevel = 0;
+                ___sinkingValue = 0;
             }
             
             
