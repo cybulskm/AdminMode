@@ -30,8 +30,8 @@ namespace AdminMode.Patches
                 ___drunkness = 0;
                 //___jetpackControls = true;
                 ___isSinking = false;
-                //___allHelmetLights[0].enabled = true;
-                //___helmetLight = ___allHelmetLights[0];
+                ___allHelmetLights[0].enabled = true;
+                ___helmetLight = ___allHelmetLights[0];
                 ___nightVision.enabled = true;
                 ___insanityLevel = 0;
                 ___sinkingValue = 0;

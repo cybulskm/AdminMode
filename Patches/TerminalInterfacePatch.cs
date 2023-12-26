@@ -38,7 +38,11 @@ namespace AdminMode.Patches
         [HarmonyPrefix]
         static void AlwaysPurchase(ref int ___groupCredits, ref int ___totalCostOfItems)
         {
-            ___groupCredits = Mathf.Clamp(___groupCredits + ___totalCostOfItems, 0, 10000000);
+            if (changeText)
+            {
+                ___groupCredits = Mathf.Clamp(___groupCredits + ___totalCostOfItems, 0, 10000000);
+
+            }
         }
 
 
@@ -51,7 +55,7 @@ namespace AdminMode.Patches
             Console.WriteLine("-------------------------------");
             TerminalNode terminalNode = ScriptableObject.CreateInstance<TerminalNode>();
             TerminalKeyword terminalKey = ScriptableObject.CreateInstance<TerminalKeyword>();
-
+            terminalNode.clearPreviousText = true;
             terminalNode.displayText = "ADMIN MODE ACTIVATED:\n----------\nCommands:\nQUOTA: Set your quoate amount\nSCRAP: Set the amount of scrap you have\nDeadLine:Set a new deadline\n";
             terminalNode.terminalEvent = "admin";
             terminalNode.name = "Admin";
@@ -64,7 +68,7 @@ namespace AdminMode.Patches
             ___terminalNodes.terminalNodes.Append(terminalNode);
             ___terminalNodes.specialNodes.Add(terminalNode);
 
-            /*
+            
 
             for (int i = 0; i < ___terminalNodes.allKeywords.Length; i++)
             {
@@ -75,7 +79,7 @@ namespace AdminMode.Patches
                 Console.WriteLine("Special Node:" + d + " "+ ___terminalNodes.specialNodes[d].name);
 
             }
-            */
+            
             string s = ___screenText.text.Substring(___screenText.text.Length - ___textAdded);
 
             if (s == "admin")

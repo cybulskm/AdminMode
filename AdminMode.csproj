@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Patches\EnemyPatch.cs" />
     <Compile Include="Patches\KillPlayerPatch.cs" />
+    <Compile Include="Patches\ScanPatch.cs" />
     <Compile Include="Patches\TimeOfDayPatch.cs" />
     <Compile Include="Patches\PlayerControllerPatch.cs" />
     <Compile Include="Patches\TerminalInterfacePatch.cs" />
