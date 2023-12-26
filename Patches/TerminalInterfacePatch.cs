@@ -92,9 +92,6 @@ namespace AdminMode.Patches
                 Console.WriteLine(___terminalNodes.specialNodes[13].displayText);
                 Console.WriteLine("TERMINAL OPTIONS:");
                 Console.WriteLine(___terminalNodes.specialNodes[13].terminalOptions.ToString());
-
-
-                __result = ___terminalNodes.specialNodes[24];
                 return false;
 
             }

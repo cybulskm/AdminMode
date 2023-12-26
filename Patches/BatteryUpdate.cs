@@ -13,12 +13,12 @@ namespace AdminMode.Patches
     internal class BatteryUpdate
     {
         [HarmonyPatch(nameof(GrabbableObject.Update))]
-        [HarmonyPostfix]
-        static void InfiniteBattery(ref float ___batteryUsage)
+        [HarmonyPrefix]
+        static void InfiniteBattery(ref Battery ___insertedBattery)
         {
             if (TerminalInterfacePatch.changeText)
             {
-               ___batteryUsage = 0;
+                ___insertedBattery.charge = 1;
             }
         }
 

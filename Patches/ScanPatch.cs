@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 
 namespace AdminMode.Patches
 {
-    [HarmonyPatch(typeof(ScanNodeProperties))]
+    [HarmonyPatch(typeof(HUDManager))]
 
     //Set company buying rate to 100 always
     internal class ScanPatch
     {
-        [HarmonyPatch("ScanNodeProperties")]
-        [HarmonyPostfix]
-        static void InfiniteScan(ref int ___maxRange, ref int __minRange, ref bool ___requiresLineOfSight)
+        [HarmonyPrefix]
+        [HarmonyPatch("MeetsScanNodeRequirements")]
+        static bool InfiniteScan(ref bool __result)
         {
-            ___maxRange = 100;
-            ___maxRange = 100;
-            ___requiresLineOfSight = false;
+            __result = true;
+            return false;
         }
 
     }
