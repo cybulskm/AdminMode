@@ -43,6 +43,7 @@ namespace AdminMode
             harmony.PatchAll(typeof(EnemyPatch));
             harmony.PatchAll(typeof(ScanPatch));
             harmony.PatchAll(typeof(BatteryUpdate));
+            harmony.PatchAll(typeof(DoorPatch));
             mls.LogInfo("Mod completed loading patches");
         }
     }

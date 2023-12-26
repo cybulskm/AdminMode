@@ -23,6 +23,12 @@ namespace AdminMode.Patches
 
             }
         }
+        [HarmonyPatch("MoveTimeOfDay")]
+        [HarmonyPrefix]
+        static bool InfiniteDay()
+        {
+            return false;
+        }
         
     }
  }
