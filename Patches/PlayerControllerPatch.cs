@@ -28,7 +28,7 @@ namespace AdminMode.Patches
                 ___isPlayerDead = false;
                 //Console.WriteLine("Set drunkness to 0");
                 ___drunkness = 0;
-                ___jetpackControls = true;
+                //___jetpackControls = true;
                 ___isSinking = false;
                 //___allHelmetLights[0].enabled = true;
                 //___helmetLight = ___allHelmetLights[0];
