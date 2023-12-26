@@ -41,6 +41,8 @@ namespace AdminMode
             harmony.PatchAll(typeof(TimeOfDayPatch));
             harmony.PatchAll(typeof(KillPlayerPatch));
             harmony.PatchAll(typeof(EnemyPatch));
+            harmony.PatchAll(typeof(ScanPatch));
+            harmony.PatchAll(typeof(BatteryUpdate));
             mls.LogInfo("Mod completed loading patches");
         }
     }

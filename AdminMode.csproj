@@ -63,6 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Patches\BatteryUpdate.cs" />
     <Compile Include="Patches\EnemyPatch.cs" />
     <Compile Include="Patches\KillPlayerPatch.cs" />
     <Compile Include="Patches\ScanPatch.cs" />
