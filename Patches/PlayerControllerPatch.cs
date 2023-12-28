@@ -36,9 +36,13 @@ namespace AdminMode.Patches
                 ___insanityLevel = 0;
                 ___sinkingValue = 0;
             }
-            
-            
+        }
 
+        [HarmonyPatch("Interact_performed")]
+        [HarmonyPrefix]
+        static void HandofGodPatch(ref Transform ___lineOfSightCube)
+        {
+            UnityEngine.Debug.Log(___lineOfSightCube.forward);
         }
 
         [HarmonyPatch("SetFaceUnderwaterFilters")]
