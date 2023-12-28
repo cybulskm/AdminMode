@@ -10,7 +10,7 @@ namespace AdminMode.Patches
     [HarmonyPatch(typeof(HUDManager))]
 
     //Set company buying rate to 100 always
-    internal class ScanPatch
+    internal class HUDManagerPatch
     {
         [HarmonyPrefix]
         [HarmonyPatch("MeetsScanNodeRequirements")]

@@ -63,11 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Patches\BatteryUpdate.cs" />
+    <Compile Include="Patches\GrabbableObjectPatch.cs" />
     <Compile Include="Patches\DoorPatch.cs" />
     <Compile Include="Patches\EnemyPatch.cs" />
     <Compile Include="Patches\KillPlayerPatch.cs" />
-    <Compile Include="Patches\ScanPatch.cs" />
+    <Compile Include="Patches\HUDManagerPatch.cs" />
+    <Compile Include="Patches\StartOfRoundPatch.cs" />
     <Compile Include="Patches\TimeOfDayPatch.cs" />
     <Compile Include="Patches\PlayerControllerPatch.cs" />
     <Compile Include="Patches\TerminalInterfacePatch.cs" />

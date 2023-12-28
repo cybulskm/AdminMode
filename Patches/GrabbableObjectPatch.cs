@@ -10,7 +10,7 @@ namespace AdminMode.Patches
     [HarmonyPatch(typeof(GrabbableObject))]
 
     //Set company buying rate to 100 always
-    internal class BatteryUpdate
+    internal class GrabbableObjectPatch
     {
         [HarmonyPatch(nameof(GrabbableObject.Update))]
         [HarmonyPrefix]
