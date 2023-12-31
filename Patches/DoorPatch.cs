@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using DunGen;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,22 @@ namespace AdminMode.Patches
     //Set company buying rate to 100 always
     internal class DoorPatch
     {
-        [HarmonyPostfix]
-        [HarmonyPatch("Awake")]
-        static void UnlockAllDoors(ref float ___lockPickTimeLeft)
+        [HarmonyPatch(nameof(DoorLock.LockDoor))]
+        [HarmonyPrefix]
+
+        static bool LockDoor(ref InteractTrigger ___doorTrigger, ref bool ___isLocked, ref DoorLock ___twinDoor)
         {
-            ___lockPickTimeLeft = 0;   
+            
+            ___doorTrigger.interactable = true;
+            ___doorTrigger.hoverTip = "No longer locked";
+            ___isLocked = false;
+            //not set to insance of object
+            if (___twinDoor != null)
+            {
+                ___twinDoor.isLocked = false;
+            }
+            return false;
+
         }
 
     }

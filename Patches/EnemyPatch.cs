@@ -23,8 +23,16 @@ namespace AdminMode.Patches
         [HarmonyPostfix]
         static void InstantKill(ref int ___enemyHP)
         {
-            Debug.WriteLine("Player killed enemy using ADMIN MODE");
+            UnityEngine.Debug.Log("Player killed enemy using ADMIN MODE");
             ___enemyHP = 0;
+        }
+
+        [HarmonyPatch(nameof(EnemyAI.KillEnemyOnOwnerClient))]
+        [HarmonyPrefix]
+        static void EnemyCanDie(ref EnemyType ___enemyType)
+        {
+            ___enemyType.canDie = true;
+            ___enemyType.destroyOnDeath = true;
         }
     }
 }

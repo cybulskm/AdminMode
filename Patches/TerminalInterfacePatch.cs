@@ -52,50 +52,40 @@ namespace AdminMode.Patches
         [HarmonyPrefix]
         static bool DisplayCommands(ref int ___textAdded, ref TMP_InputField ___screenText, ref TerminalNodesList ___terminalNodes, ref TerminalNode __result)
         {
-            Console.WriteLine("-------------------------------");
             TerminalNode terminalNode = ScriptableObject.CreateInstance<TerminalNode>();
             TerminalKeyword terminalKey = ScriptableObject.CreateInstance<TerminalKeyword>();
             terminalNode.clearPreviousText = true;
-            terminalNode.displayText = "ADMIN MODE ACTIVATED:\n----------\nCommands:\nQUOTA: Set your quoate amount\nSCRAP: Set the amount of scrap you have\nDeadLine:Set a new deadline\n";
+            terminalNode.displayText = "ADMIN MODE ACTIVATED:PLACEHOLDER TEXT BELOW --IGNORE\n----------\n>FEATURES INCLUDED:\n-Infinite Sprint\n-Infinite Battery\n-Instant Kill\n-Infinite Credits\n-Infinite Scan\n-Untargetabble\n-Unkillable\n-Slower Days\n";
             terminalNode.terminalEvent = "admin";
             terminalNode.name = "Admin";
             terminalKey.word = "admin";
-
-
             ___terminalNodes.terminalNodes.Add(terminalNode);
             ___terminalNodes.allKeywords.AddToArray(terminalKey);
             ___terminalNodes.allKeywords.Append(terminalKey);
             ___terminalNodes.terminalNodes.Append(terminalNode);
             ___terminalNodes.specialNodes.Add(terminalNode);
 
-            
+            TerminalNode terminalNode1 = ScriptableObject.CreateInstance<TerminalNode>();
+            terminalNode1.clearPreviousText = true;
+            terminalNode1.displayText = "ADMIN MODE ALREADY ENABLED";
+            terminalNode1.terminalEvent = "admin";
 
-            for (int i = 0; i < ___terminalNodes.allKeywords.Length; i++)
-            {
-                Console.WriteLine("Keyword: " + i + " "+ ___terminalNodes.allKeywords[i].word);
-            }
-            for (int d = 0; d < ___terminalNodes.specialNodes.Count; d++)
-            {
-                Console.WriteLine("Special Node:" + d + " "+ ___terminalNodes.specialNodes[d].name);
 
-            }
+           
             
             string s = ___screenText.text.Substring(___screenText.text.Length - ___textAdded);
 
             if (s == "admin")
             {
-                changeText = true;
-                Console.WriteLine("Admin mode has been activated!");
-                Console.WriteLine("TERMINAL EVENT:");
-                Console.WriteLine(___terminalNodes.specialNodes[13].terminalEvent.ToString());
-                Console.WriteLine("TERMINAL TEXT:");
-                Console.WriteLine(___terminalNodes.specialNodes[13].displayText);
-                Console.WriteLine("TERMINAL OPTIONS:");
-                Console.WriteLine(___terminalNodes.specialNodes[13].terminalOptions.ToString());
-
-
-                __result = ___terminalNodes.specialNodes[24];
-                return false;
+                if (changeText == false)
+                {
+                    changeText = true;
+                    Console.WriteLine("Admin mode has been activated!");
+                    Console.WriteLine(___terminalNodes.specialNodes[24].name);
+                    __result = ___terminalNodes.specialNodes[24];
+                    return false;
+                }
+                
 
             }
             if (s == "user")
@@ -104,9 +94,6 @@ namespace AdminMode.Patches
 
                 changeText = false;
             }
-
-
-            Console.WriteLine("-------------------------------");
             return true;
         }
 

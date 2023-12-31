@@ -44,7 +44,6 @@ namespace AdminMode
             harmony.PatchAll(typeof(HUDManagerPatch));
             harmony.PatchAll(typeof(GrabbableObjectPatch));
             harmony.PatchAll(typeof(DoorPatch));
-            harmony.PatchAll(typeof(StartOfRound));
             mls.LogInfo("Mod completed loading patches");
         }
     }
