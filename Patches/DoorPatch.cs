@@ -19,15 +19,19 @@ namespace AdminMode.Patches
         static bool LockDoor(ref InteractTrigger ___doorTrigger, ref bool ___isLocked, ref DoorLock ___twinDoor)
         {
             
-            ___doorTrigger.interactable = true;
-            ___doorTrigger.hoverTip = "No longer locked";
-            ___isLocked = false;
-            //not set to insance of object
-            if (___twinDoor != null)
+            if (TerminalInterfacePatch.OpenDoors)
             {
-                ___twinDoor.isLocked = false;
+                ___doorTrigger.interactable = true;
+                ___doorTrigger.hoverTip = "No longer locked";
+                ___isLocked = false;
+                if (___twinDoor != null)
+                {
+                    ___twinDoor.isLocked = false;
+                }
+                return false;
             }
-            return false;
+            return true;
+            
 
         }
 

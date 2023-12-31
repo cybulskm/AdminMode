@@ -14,7 +14,12 @@ namespace AdminMode.Patches
         [HarmonyPrefix]
         static bool DontKillPlayer()
         {
-            return false;
+            if (TerminalInterfacePatch.CantDie)
+            {
+                return false;
+
+            }
+            return true;
         }
     }
 }

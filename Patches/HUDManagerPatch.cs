@@ -17,8 +17,13 @@ namespace AdminMode.Patches
         [HarmonyPatch("MeetsScanNodeRequirements")]
         static bool InfiniteScan(ref bool __result)
         {
-            __result = true;
-            return false;
+            if (TerminalInterfacePatch.ImprovedStats)
+            {
+                __result = true;
+                return false;
+            }
+            return true;
+            
         }
         /*
         [HarmonyPostfix]

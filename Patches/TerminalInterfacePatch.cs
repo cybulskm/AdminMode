@@ -16,12 +16,20 @@ namespace AdminMode.Patches
     internal class TerminalInterfacePatch
     {
         public static bool changeText = false;
+        public static bool TwoHands = false;
+        public static bool CantDie = false;
+        public static bool BuyingPower = false;
+        public static bool ImprovedStats = false;
+        public static bool HandOfGod = false;
+        public static bool OpenDoors = false;
+
+
 
         [HarmonyPatch("Update")]
         [HarmonyPostfix]
         static void AddMenu(ref TextMeshProUGUI ___topRightText, ref int ___groupCredits)
         {
-            if (changeText)
+            if (changeText || ___groupCredits == 999)
             {
                 ___topRightText.text += "ADMIN";
                 ___groupCredits = 999;
@@ -52,37 +60,19 @@ namespace AdminMode.Patches
         [HarmonyPrefix]
         static bool DisplayCommands(ref int ___textAdded, ref TMP_InputField ___screenText, ref TerminalNodesList ___terminalNodes, ref TerminalNode __result)
         {
-            TerminalNode terminalNode = ScriptableObject.CreateInstance<TerminalNode>();
-            TerminalKeyword terminalKey = ScriptableObject.CreateInstance<TerminalKeyword>();
-            terminalNode.clearPreviousText = true;
-            terminalNode.displayText = "ADMIN MODE ACTIVATED:PLACEHOLDER TEXT BELOW --IGNORE\n----------\n>FEATURES INCLUDED:\n-Infinite Sprint\n-Infinite Battery\n-Instant Kill\n-Infinite Credits\n-Infinite Scan\n-Untargetabble\n-Unkillable\n-Slower Days\n";
-            terminalNode.terminalEvent = "admin";
-            terminalNode.name = "Admin";
-            terminalKey.word = "admin";
-            ___terminalNodes.terminalNodes.Add(terminalNode);
-            ___terminalNodes.allKeywords.AddToArray(terminalKey);
-            ___terminalNodes.allKeywords.Append(terminalKey);
-            ___terminalNodes.terminalNodes.Append(terminalNode);
-            ___terminalNodes.specialNodes.Add(terminalNode);
-
-            TerminalNode terminalNode1 = ScriptableObject.CreateInstance<TerminalNode>();
-            terminalNode1.clearPreviousText = true;
-            terminalNode1.displayText = "ADMIN MODE ALREADY ENABLED";
-            terminalNode1.terminalEvent = "admin";
-
-
-           
             
+
+
+
             string s = ___screenText.text.Substring(___screenText.text.Length - ___textAdded);
 
             if (s == "admin")
             {
+                __result = ___terminalNodes.specialNodes[24];
                 if (changeText == false)
                 {
                     changeText = true;
-                    Console.WriteLine("Admin mode has been activated!");
-                    Console.WriteLine(___terminalNodes.specialNodes[24].name);
-                    __result = ___terminalNodes.specialNodes[24];
+                    
                     return false;
                 }
                 
@@ -94,8 +84,87 @@ namespace AdminMode.Patches
 
                 changeText = false;
             }
+            if (changeText == true)
+            {
+                if (s == "unkillable")
+                {
+                    CantDie = true;
+                    __result = ___terminalNodes.specialNodes[25];
+                    return false;
+                }
+                if (s == "two hands")
+                {
+                    TwoHands = true;
+                    __result = ___terminalNodes.specialNodes[26];
+                    return false;
+                }
+                if (s == "improved stats")
+                {
+                    ImprovedStats = true;
+                    __result = ___terminalNodes.specialNodes[27];
+                    return false;
+                }
+                if (s == "open doors")
+                {
+                    OpenDoors = true;
+                    __result = ___terminalNodes.specialNodes[28];
+                    return false;
+                }
+                if (s == "hand of god")
+                {
+                    HandOfGod = true;
+                    __result = ___terminalNodes.specialNodes[29];
+                    return false;
+                }
+                if (s == "buying power")
+                {
+                    BuyingPower = true;
+                    __result = ___terminalNodes.specialNodes[30];
+                    return false;
+                }
+
+            }
+
             return true;
         }
+        [HarmonyPatch("Start")]
+        [HarmonyPrefix]
+        static void GenerateCommands( ref TerminalNodesList ___terminalNodes)
+        {
+            string[] nodeDisplayText = new string[] {"ADMIN MODE ACTIVATED:\n----------" +
+                "\n\n>Unkillable\n-Player can't die (works for the most part)" +
+                "\n\n>Two Hands\n-Player can interact with objects while both hands are full" +
+                "\n\n>Improved Stats\n-Player stats are improved. Infnite sprint, big jump, infnite battery, better vision" +
+                "\n\n>Open Doors\n-All locked doors are open (doesn't work for double doors)" +
+                "\n\n>Hand of God\n-Player can one shot enimies" +
+                "\n\n>Buying Power\n-Company buying rate set to 0 + Infinite Spending\n" ,
+                "UNKILLABLE ENABLED:\n\n>You are now unkillable\n",
+                "TWO HANDS ENABLED\n\n>You can now do things with two hands\n",
+                "YOU NOW HAVE:\nInfinite Sprint\nBig Jumps\nInfinite Battery\nHead flashlight\nMore features soon\n",
+                 "ALL DOORS UNLOCKED\n\n>Still working on double doors :(\n",
+                  "HAND OF GOD ENABLED\n\n>You can now one shot things\n",
+                   "BUYING POWER ENABLED\n\n>Spend away!!\n"
+            };
+            string[] nodeTerminalEvent = new string[] { "Admin", "Unkillable", "Two Hands", "Improved Stats", "Open Doors", "Hand of God", "Buying Power" };
+            string[] terminalKeyWord = new string[] { "admin", "unkillable", "two hands", "improved stats", "open doors", "hand of god", "buying power" };
 
+
+
+            for (int i = 0; i < terminalKeyWord.Length; i++)
+            {
+                TerminalNode node = ScriptableObject.CreateInstance<TerminalNode>();
+                TerminalKeyword key = ScriptableObject.CreateInstance<TerminalKeyword>();
+                node.clearPreviousText = true;
+                node.displayText = nodeDisplayText[i];
+                node.terminalEvent = nodeTerminalEvent[i];
+                node.name = nodeTerminalEvent[i];
+                key.name = nodeTerminalEvent[i];
+                key.word = terminalKeyWord[i];
+                ___terminalNodes.terminalNodes.Add(node);
+                ___terminalNodes.specialNodes.Add(node);
+                ___terminalNodes.allKeywords.AddToArray(key);
+
+            }
+        }
     }
 }

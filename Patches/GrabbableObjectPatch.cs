@@ -16,7 +16,7 @@ namespace AdminMode.Patches
         [HarmonyPrefix]
         static void InfiniteBattery(ref Battery ___insertedBattery)
         {
-            if (TerminalInterfacePatch.changeText)
+            if (TerminalInterfacePatch.ImprovedStats)
             {
                 ___insertedBattery.charge = 1;
             }

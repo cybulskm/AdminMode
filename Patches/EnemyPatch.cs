@@ -15,24 +15,36 @@ namespace AdminMode.Patches
         [HarmonyPrefix]
         static bool DontTargetPlayer(ref bool __result)
         {
-            __result = false;
-            return false;
+            if (TerminalInterfacePatch.CantDie)
+            {
+                __result = false;
+                return false;
+            }
+            return true;
+           
         }
 
         [HarmonyPatch(nameof(EnemyAI.HitEnemy))]
         [HarmonyPostfix]
         static void InstantKill(ref int ___enemyHP)
         {
-            UnityEngine.Debug.Log("Player killed enemy using ADMIN MODE");
-            ___enemyHP = 0;
+            if (TerminalInterfacePatch.HandOfGod)
+            {
+                ___enemyHP = 0;
+
+            }
         }
 
         [HarmonyPatch(nameof(EnemyAI.KillEnemyOnOwnerClient))]
         [HarmonyPrefix]
         static void EnemyCanDie(ref EnemyType ___enemyType)
         {
-            ___enemyType.canDie = true;
-            ___enemyType.destroyOnDeath = true;
+            if (TerminalInterfacePatch.HandOfGod)
+            {
+                ___enemyType.canDie = true;
+                ___enemyType.destroyOnDeath = true;
+            }
+           
         }
     }
 }

@@ -18,7 +18,7 @@ namespace AdminMode.Patches
         [HarmonyPostfix]
         static void BuyingRate()
         {
-            if (TerminalInterfacePatch.changeText)
+            if (TerminalInterfacePatch.BuyingPower)
             {
                 StartOfRound.Instance.companyBuyingRate = 1;
 
