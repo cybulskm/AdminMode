@@ -15,21 +15,21 @@ namespace AdminMode.Patches
     [HarmonyPatch(typeof(Terminal))]
     internal class TerminalInterfacePatch
     {
-        public static bool changeText = false;
+        public static bool AdminMode = false;
         public static bool TwoHands = false;
         public static bool CantDie = false;
         public static bool BuyingPower = false;
         public static bool ImprovedStats = false;
         public static bool HandOfGod = false;
         public static bool OpenDoors = false;
-
+        public static bool[] patchBoolList = new bool[] { AdminMode, TwoHands, CantDie, BuyingPower, ImprovedStats, HandOfGod, OpenDoors};
 
 
         [HarmonyPatch("Update")]
         [HarmonyPostfix]
         static void AddMenu(ref TextMeshProUGUI ___topRightText, ref int ___groupCredits)
         {
-            if (changeText || ___groupCredits == 999)
+            if (AdminMode || ___groupCredits == 999)
             {
                 ___topRightText.text += "ADMIN";
                 ___groupCredits = 999;
@@ -43,12 +43,12 @@ namespace AdminMode.Patches
         }
 
         [HarmonyPatch("LoadNewNodeIfAffordable")]
-        [HarmonyPrefix]
+        [HarmonyPostfix]
         static void AlwaysPurchase(ref int ___groupCredits, ref int ___totalCostOfItems)
         {
-            if (changeText)
+            if (AdminMode)
             {
-                ___groupCredits = Mathf.Clamp(___groupCredits + ___totalCostOfItems, 0, 10000000);
+                ___groupCredits = ___groupCredits + ___totalCostOfItems;
 
             }
         }
@@ -69,23 +69,23 @@ namespace AdminMode.Patches
             if (s == "admin")
             {
                 __result = ___terminalNodes.specialNodes[24];
-                if (changeText == false)
+                if (AdminMode == false)
                 {
-                    changeText = true;
+                    AdminMode = true;
                     
-                    return false;
                 }
-                
+                return false;
 
             }
             if (s == "user")
             {
                 Console.WriteLine("Admin mode has been de-activated!");
 
-                changeText = false;
+                AdminMode = false;
             }
-            if (changeText == true)
+            if (AdminMode == true)
             {
+                //Ill make an array of words and bools later
                 if (s == "unkillable")
                 {
                     CantDie = true;
@@ -122,6 +122,17 @@ namespace AdminMode.Patches
                     __result = ___terminalNodes.specialNodes[30];
                     return false;
                 }
+                if (s == "all")
+                {
+                    CantDie = true;
+                    TwoHands = true;
+                    ImprovedStats = true;
+                    OpenDoors = true;
+                    HandOfGod = true; 
+                    BuyingPower = true;
+                    __result = ___terminalNodes.specialNodes[31];
+                    return false;
+                }
 
             }
 
@@ -132,6 +143,7 @@ namespace AdminMode.Patches
         static void GenerateCommands( ref TerminalNodesList ___terminalNodes)
         {
             string[] nodeDisplayText = new string[] {"ADMIN MODE ACTIVATED:\n----------" +
+                "\n\n>All\n-Activate all admin abilities" +
                 "\n\n>Unkillable\n-Player can't die (works for the most part)" +
                 "\n\n>Two Hands\n-Player can interact with objects while both hands are full" +
                 "\n\n>Improved Stats\n-Player stats are improved. Infnite sprint, big jump, infnite battery, better vision" +
@@ -143,10 +155,11 @@ namespace AdminMode.Patches
                 "YOU NOW HAVE:\nInfinite Sprint\nBig Jumps\nInfinite Battery\nHead flashlight\nMore features soon\n",
                  "ALL DOORS UNLOCKED\n\n>Still working on double doors :(\n",
                   "HAND OF GOD ENABLED\n\n>You can now one shot things\n",
-                   "BUYING POWER ENABLED\n\n>Spend away!!\n"
+                   "BUYING POWER ENABLED\n\n>Spend away!!\n",
+                   "ALL MODS ACTIVATED\n"
             };
-            string[] nodeTerminalEvent = new string[] { "Admin", "Unkillable", "Two Hands", "Improved Stats", "Open Doors", "Hand of God", "Buying Power" };
-            string[] terminalKeyWord = new string[] { "admin", "unkillable", "two hands", "improved stats", "open doors", "hand of god", "buying power" };
+            string[] nodeTerminalEvent = new string[] { "Admin", "Unkillable", "Two Hands", "Improved Stats", "Open Doors", "Hand of God", "Buying Power", "All" };
+            string[] terminalKeyWord = new string[] { "admin", "unkillable", "two hands", "improved stats", "open doors", "hand of god", "buying power", "All" };
 
 
 

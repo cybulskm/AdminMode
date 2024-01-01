@@ -23,24 +23,9 @@ namespace AdminMode.Patches
                 return false;
             }
             return true;
-            
-        }
-        /*
-        [HarmonyPostfix]
-        [HarmonyPatch("UpdateScanNodes")]
-        static void HandOfGOd(ref RectTransform[] ___scanElements, ref Dictionary<RectTransform, ScanNodeProperties> ___scanNodes)
-        {
-            for (int i = 0;  i < ___scanElements.Length; i++)
-            {
-                if (___scanNodes.TryGetValue(___scanElements[i], out var value) && value != null)
-                {
-                    Console.WriteLine(value.gameObject.name);
-                }
-
-            }
 
         }
-        */
+    
 
     }
 }

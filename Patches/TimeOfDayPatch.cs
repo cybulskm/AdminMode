@@ -12,7 +12,6 @@ namespace AdminMode.Patches
 
     internal class TimeOfDayPatch
     {
-        //Set company buying rate to 100 always
 
         [HarmonyPatch(nameof(TimeOfDay.SetBuyingRateForDay))]
         [HarmonyPostfix]
@@ -24,25 +23,14 @@ namespace AdminMode.Patches
 
             }
         }
-        /*
-        [HarmonyPatch("Start")]
-        [HarmonyPostfix]
-        static void SyncNewProfitQuotaClientRpc(ref int ___quotaFulfilled, ref float ___timeUntilDeadline) 
-        {
-            
-            ___quotaFulfilled = 999;
-            ___timeUntilDeadline = 999;
-            
-            
-        }
-        */
+        //Implement later
         /*
         [HarmonyPatch("MoveGlobalTime")]
         [HarmonyPrefix]
         static void InfiniteDay(ref float ___globalTimeSpeedMultiplier)
         {
 
-            if (TerminalInterfacePatch.changeText)
+            if (TerminalInterfacePatch.AdminMode)
             {
                 ___globalTimeSpeedMultiplier = 0.1f;
 
